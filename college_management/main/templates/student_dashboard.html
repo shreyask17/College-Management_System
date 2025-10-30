@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    body { background: #f7f7f7; }
+    h1, h2 { color: #333; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+    th { background-color: #4CAF50; color: white; }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+    .section { margin-top: 40px; }
+</style>
+<br>
+<h1>Welcome, {{ student.full_name }}</h1>
+
+<div class="text-center">
+  <a href="{% url 'student_summary' student.id %}" 
+     class="btn btn-success mt-3">
+     View Summary 📊
+  </a>
+</div>
+
+<div class="section">
+  <h2>Attendance Records</h2>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr><th>Date</th><th>Course</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      {% for record in attendance_records %}
+        <tr>
+          <td>{{ record.date }}</td>
+          <td>{{ record.course.name }}</td>
+          <td>{{ record.status }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="3">No attendance records found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>Marks</h2>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr><th>Course</th><th>Marks Obtained</th><th>Total Marks</th><th>Grade</th></tr>
+    </thead>
+    <tbody>
+      {% for record in marks_records %}
+        <tr>
+          <td>{{ record.course.name }}</td>
+          <td>{{ record.marks_obtained }}</td>
+          <td>{{ record.total_marks }}</td>
+          <td>{{ record.grade }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="4">No marks found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

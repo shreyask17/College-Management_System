@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  body {
+    background: linear-gradient(135deg, #e0f2ff, #f9fbff);
+    font-family: 'Poppins', sans-serif;
+    overflow-y: hidden; /* remove scroll */
+  }
+
+  .home-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 160px);
+  }
+
+  .home-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 50px 40px;
+    width: 90%;
+    max-width: 600px;
+    transition: all 0.3s ease;
+  }
+
+  .home-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .home-card h1 {
+    color: #1a1a1a;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+
+  .home-card p {
+    color: #555;
+    font-size: 1.05rem;
+    margin-bottom: 30px;
+  }
+
+  .home-btn {
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 12px 28px;
+    margin: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .home-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-success { background-color: #34a853 !important; }
+  .btn-primary { background-color: #1a73e8 !important; }
+  .btn-dark { background-color: #202124 !important; }
+</style>
+
+<div class="home-container">
+  <div class="home-card">
+    <h1>🎓 Welcome to the College Management System</h1>
+    <p>Effortlessly manage Students, Teachers, Attendance, and Marks - all in one place.</p>
+
+    <div>
+      <a href="/student/1/" class="btn btn-success home-btn">Go to Student Dashboard</a>
+      <a href="/teacher/1/" class="btn btn-primary home-btn">Go to Teacher Dashboard</a>
+      <a href="/admin/" class="btn btn-dark home-btn">Go to Admin Panel</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

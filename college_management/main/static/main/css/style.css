@@ -1,0 +1,21 @@
+:root{
+  --primary: #1a73e8;
+  --accent: #34a853;
+  --muted: #6c757d;
+  --card-bg: #fff;
+}
+
+/* small global tweaks */
+body {
+  background: linear-gradient(135deg, #f3f8ff, #ffffff);
+}
+
+/* nicer container cards */
+.card {
+  border-radius: 12px;
+}
+
+/* button smoothing */
+.btn {
+  border-radius: 8px;
+}

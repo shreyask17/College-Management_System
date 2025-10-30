@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  body {
+    background-color: #eef3f7;
+  }
+  .summary-box {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 30px;
+    max-width: 500px;
+    margin: 60px auto;
+    text-align: center;
+  }
+  .summary-box h2 {
+    color: #333;
+    margin-bottom: 25px;
+  }
+  .data {
+    font-size: 18px;
+    margin: 15px 0;
+  }
+</style>
+
+<div class="summary-box">
+  <h2>{{ student.full_name }}'s Summary</h2>
+  <div class="data">📘 Attendance Percentage: <b>{{ attendance_percentage }}%</b></div>
+  <div class="data">🧮 Average Marks: <b>{{ average_marks }}</b></div>
+
+  <a href="{% url 'student_dashboard' student.id %}" class="btn btn-primary mt-3">
+    ⬅ Back to Dashboard
+  </a>
+</div>
+{% endblock %}

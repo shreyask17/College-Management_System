@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center mb-4">
+  <br>
+  <h2 class="fw-bold">👨‍🏫 {{ teacher.full_name }}'s Dashboard</h2>
+  <p class="text-muted">Manage courses, attendance, and marks for your students.</p>
+</div>
+
+<!-- Assign Course Card -->
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="card-title mb-3">Assign Course to {{ teacher.full_name }}</h5>
+    <form method="POST" class="row g-2 align-items-center justify-content-center">
+      {% csrf_token %}
+      <div class="col-auto">
+        <select name="course_to_assign" class="form-select">
+          <option value="">-- Select Course --</option>
+          {% for c in all_courses %}
+            <option value="{{ c.id }}">{{ c.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-primary" name="assign_course" type="submit">Assign</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Assigned Courses -->
+{% if courses %}
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="card-title mb-3">📘 Assigned Courses</h5>
+    <ul class="list-group">
+      {% for c in courses %}
+        <li class="list-group-item">{{ c.name }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% else %}
+<div class="alert alert-info text-center">No courses assigned yet.</div>
+{% endif %}
+
+<!-- Attendance Form -->
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="card-title mb-3">📅 Mark Attendance</h5>
+    <form method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="attendance_submit" value="1" />
+      <div class="row g-2">
+        <div class="col-md-3">
+          <select name="student" class="form-select">
+            {% for s in students %}
+              <option value="{{ s.id }}">{{ s.full_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-3">
+          <select name="course" class="form-select">
+            {% for c in courses %}
+              <option value="{{ c.id }}">{{ c.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-2">
+          <input type="date" name="date" class="form-control" required />
+        </div>
+        <div class="col-md-2">
+          <select name="status" class="form-select">
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-success w-100">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Marks Form -->
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title mb-3">🧮 Record Marks</h5>
+    <form method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="marks_submit" value="1" />
+      <div class="row g-2">
+        <div class="col-md-3">
+          <select name="student" class="form-select">
+            {% for s in students %}
+              <option value="{{ s.id }}">{{ s.full_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-3">
+          <select name="course" class="form-select">
+            {% for c in courses %}
+              <option value="{{ c.id }}">{{ c.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-2">
+          <input type="number" name="marks_obtained" class="form-control" placeholder="Marks" required />
+        </div>
+        <div class="col-md-2">
+          <input type="number" name="total_marks" class="form-control" placeholder="Total" required />
+        </div>
+        <div class="col-md-1">
+          <input type="text" name="grade" class="form-control" placeholder="Grade" maxlength="2" />
+        </div>
+        <div class="col-md-1">
+          <button class="btn btn-primary w-100">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
